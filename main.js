@@ -22,6 +22,7 @@
       this.setupGrainAndCursor();
       this.setupHeader();
       this.setupWaFloat();
+      this.setupLoader();
       this.setupNav();
       this.setupForm();
       this.setupChips();
@@ -134,6 +135,7 @@
         'Tu smo na WhatsAppu': 'Мы на связи в WhatsApp',
         'Pošalji registarsku oznaku i rok. Cenu i datum dobijaš isti dan, bez poziva i bez čekanja na šalteru.': 'Пришлите номер и срок. Цену и дату получите в тот же день, без звонков и без ожидания в окошке.',
         'Otvori prepisku': 'Открыть переписку',
+        'Preskoči na sadržaj': 'Перейти к содержанию',
         'Piši nam': 'Напишите нам',
         'odgovaramo isti dan': 'отвечаем в тот же день',
         'Šta ti treba?': 'Что вам нужно?',
@@ -408,6 +410,51 @@
     }
 
     /* Hamburger meni: ispod 992px navigacija je panel koji se spušta ispod headera. */
+    /* Uvodni ekran stoji dok se logo i hero fotka ne učitaju, pa se povlači uvis. */
+    setupLoader() {
+      const el = document.querySelector('[data-loader]');
+      if (!el) return;
+      const logo = el.querySelector('[data-loader-logo]');
+      const bar = el.querySelector('[data-loader-bar]');
+      // Ne diramo body overflow: to sruši visinu dokumenta i ScrollTrigger izmeri nulu.
+      // Umesto toga blokiramo same događaje skrolovanja dok uvodni ekran stoji.
+      const block = (e) => { e.preventDefault(); };
+      const keys = (e) => { if ([32,33,34,35,36,38,40].indexOf(e.keyCode) > -1) e.preventDefault(); };
+      window.addEventListener('wheel', block, { passive: false });
+      window.addEventListener('touchmove', block, { passive: false });
+      window.addEventListener('keydown', keys, { passive: false });
+      let stoppedLenis = false;
+      if (this.lenis) { this.lenis.stop(); stoppedLenis = true; }
+      window.scrollTo(0, 0);
+
+      requestAnimationFrame(() => {
+        if (logo) { logo.style.opacity = '1'; logo.style.transform = 'translateY(0)'; }
+        if (bar) bar.style.transform = 'scaleX(1)';
+      });
+
+      const done = () => {
+        if (el.dataset.done) return;
+        el.dataset.done = '1';
+        el.style.transform = 'translateY(-100%)';
+        el.style.opacity = '0';
+        window.removeEventListener('wheel', block);
+        window.removeEventListener('touchmove', block);
+        window.removeEventListener('keydown', keys);
+        if (stoppedLenis && this.lenis) this.lenis.start();
+        setTimeout(() => {
+          el.remove();
+          requestAnimationFrame(() => { if (window.ScrollTrigger) window.ScrollTrigger.refresh(true); });
+        }, 1100);
+      };
+
+      // čeka logo i hero fotku, ali ne duže od 2.6s
+      const hero = document.querySelector('#top img');
+      const waits = [logo, hero].filter(Boolean).map(img => img.complete ? Promise.resolve()
+        : new Promise(res => { img.addEventListener('load', res, { once: true }); img.addEventListener('error', res, { once: true }); }));
+      Promise.all(waits).then(() => setTimeout(done, 620));
+      setTimeout(done, 2600);
+    }
+
     setupNav() {
       const burger = document.querySelector('[data-burger]');
       const nav = document.querySelector('[data-nav]');
@@ -459,8 +506,11 @@
       setTimeout(() => {
         const live = window.ScrollTrigger.getAll();
         const alive = (this.triggers || []).some(t => live.indexOf(t) > -1);
-        if (!alive) {
-          gsap.set('[data-card], [data-rise], section h2, section h3', { clearProps: 'all' });
+        // Trigeri mogu i da postoje, a da su izmereni na nuli (npr. dokument bez visine).
+        const zeroed = live.length > 0 && live.every(t => t.end === 0);
+        if (zeroed) { try { window.ScrollTrigger.refresh(true); } catch (e) {} }
+        if (!alive || (zeroed && window.ScrollTrigger.getAll().every(t => t.end === 0))) {
+          gsap.set('#top h1 span, [data-card], [data-rise], section h2, section h3', { clearProps: 'all' });
           gsap.set('[data-ul]', { scaleX: 1 });
         }
       }, 2200);
