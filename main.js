@@ -353,6 +353,7 @@
 
     /* Video se učitava samo ako fajl postoji, inače ostaje poster (hero.jpg),
        bez greške u konzoli. Putanja je u data-src atributu. */
+    /* Video se prikazuje tek kad počne da svira, do tada stoji fotografija. */
     setupHeroVideo() {
       const v = document.querySelector('[data-hero-video]');
       if (!v || !v.dataset.src || this.reduced) return;
@@ -360,6 +361,7 @@
         .then(r => {
           if (!r.ok) return;
           v.src = v.dataset.src;
+          v.addEventListener('playing', () => { v.style.opacity = '1'; }, { once: true });
           const p = v.play();
           if (p && p.catch) p.catch(() => {});
         })

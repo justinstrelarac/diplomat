@@ -1,7 +1,7 @@
 /* ============================================================
    Diplomat Line, style.css
    Boje i fontovi se menjaju SAMO ovde, u :root varijablama.
-   Prelomne tačke: 1200 / 992 / 900 / 768 / 480 / 380 px.
+   Prelomne tačke: 1200 / 992 / 768 / 480 / 380 px.
    ============================================================ */
 :root {
   /* Boje brenda */
@@ -29,6 +29,10 @@ html { -webkit-text-size-adjust: 100%; }
   @keyframes dl-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes dl-scroll-hint { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+
+  /* Prelomi teksta: naslovi se balansiraju, pasusi nemaju siroče u zadnjem redu */
+  h1, h2, h3, blockquote p { text-wrap: balance; }
+  p, li span, figcaption { text-wrap: pretty; }
 
   /* ============================================================
      RESPONZIVNOST
@@ -120,6 +124,16 @@ html { -webkit-text-size-adjust: 100%; }
   /* ---- 380px: najuži telefoni ---- */
   @media (max-width: 380px) {
     [data-nav] { padding-top: 84px !important; }
+  }
+
+  /* Minimalni tap target ispod 992px, bez obzira na tip pokazivača */
+  @media (max-width: 992px) {
+    [data-wa-close] { width: 40px !important; height: 40px !important; top: 8px !important; right: 8px !important; }
+    [data-wa-card] a { min-height: 46px !important; }
+    [data-lang] { min-height: 44px !important; padding: 13px 18px !important; }
+    [data-more] { padding: 13px 0 !important; }
+    footer a { padding: 11px 0 !important; }
+    footer a[href^="tel:"] { padding: 8px 0 !important; }
   }
 
   /* Minimalni tap target na svim dodirnim ekranima */

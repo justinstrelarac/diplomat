@@ -1,6 +1,6 @@
 U sajtu se koriste četiri fotografije:
 
-  hero.jpg          Audi u vožnji, nemačke tablice          → hero (upscale 2358×3192)
+  hero.jpg          predaja ključa kroz prozor automobila   → hero (upscale 2358×3192)
   uvoz.jpg          oštećen automobil posle udesa           → pojas "Uvoz"
   red.jpg           vozač sa telefonom, BMW interijer       → sekcija "Zovi nas kada"
   kontakt-osoba.jpg fotografija čoveka koji odgovara na      → prozor "Tu smo na
