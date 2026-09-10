@@ -1,0 +1,168 @@
+/* ============================================================
+   Diplomat Line, style.css
+   Boje i fontovi se menjaju SAMO ovde, u :root varijablama.
+   Prelomne tačke: 1200 / 992 / 900 / 768 / 480 / 380 px.
+   ============================================================ */
+:root {
+  /* Boje brenda */
+  --black: #0A0A0A;             --black-rgb: 10,10,10;
+  --ink: #F5F3EF;               --ink-rgb: 245,243,239;
+  --accent: #C8C6C0;            --accent-rgb: 200,198,192;
+  --accent-light: #E9E7E1;      --accent-light-rgb: 233,231,225;
+
+  /* Tipografija */
+  --font-display: 'Space Grotesk', sans-serif;              /* naslovi */
+  --font-body: 'Manrope', sans-serif;                       /* telo */
+  --font-display-cyr: 'Golos Text', 'Manrope', sans-serif;  /* ruska verzija */
+}
+
+html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #0A0A0A; color: #F5F3EF; font-family: 'Manrope', system-ui, sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #C8C6C0; text-decoration: none; transition: color .3s ease; }
+  a:hover { color: #E9E7E1; }
+  :focus-visible { outline: 2px solid #C8C6C0; outline-offset: 3px; }
+  ::selection { background: #C8C6C0; color: #0A0A0A; }
+  input, textarea, select, button { font-family: inherit; }
+  select option { background: #111; color: #F5F3EF; }
+  @keyframes dl-grain { 0%,100% { transform: translate(0,0); } 20% { transform: translate(-2%,1%); } 40% { transform: translate(1%,-2%); } 60% { transform: translate(-1%,2%); } 80% { transform: translate(2%,-1%); } }
+  @keyframes dl-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes dl-scroll-hint { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+
+  /* ============================================================
+     RESPONZIVNOST
+     Osnovni raspored je fluidan (clamp / auto-fit grid). Ovde su
+     samo prelomne tačke na kojima raspored menja ponašanje.
+     ============================================================ */
+
+  /* Slike i video nikad ne izlaze iz svog okvira */
+  img, video, svg, iframe { max-width: 100%; }
+  img:not([style*="height:100%"]):not([style*="height: 100%"]) { height: auto; }
+
+  /* ---- 1200px: uže margine, mirniji naslovi ---- */
+  @media (max-width: 1200px) {
+    [data-header] { gap: 16px !important; }
+    [data-nav] { gap: 14px !important; }
+  }
+
+  /* ---- 992px: hamburger preuzima navigaciju (linkovi izlaze iz trake) ---- */
+  @media (max-width: 992px) {
+    [data-navlink] { display: none !important; }
+    [data-burger] { display: flex !important; }
+    [data-nav] {
+      position: fixed !important;
+      top: 0; left: 0; right: 0;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      justify-content: flex-start !important;
+      gap: 4px !important;
+      padding: 92px clamp(18px,5vw,40px) clamp(28px,5vh,44px) !important;
+      background: rgba(10,10,10,.97);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      max-height: 100svh; overflow-y: auto;
+      transform: translateY(-102%);
+      transition: transform .45s cubic-bezier(.5,0,.2,1), visibility .45s;
+      visibility: hidden;
+      z-index: -1;
+    }
+    [data-nav-open] [data-nav] { transform: translateY(0); visibility: visible; }
+    /* u meniju se linkovi vraćaju, kao veliki redovi */
+    [data-nav] [data-navlink] {
+      display: block !important;
+      padding: 17px 2px !important;
+      font-size: 13px !important;
+      color: #F5F3EF !important;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    [data-nav] > a[href^="tel:"] {
+      justify-content: center !important;
+      margin-top: 18px !important;
+      padding: 17px 24px !important;
+      font-size: 13px !important;
+    }
+    [data-nav] > a[aria-label*="Instagram"] {
+      width: 100% !important; height: 52px !important;
+      margin-top: 8px !important; border-radius: 14px !important;
+    }
+    [data-nav] > [role="group"] { align-self: flex-start !important; margin-top: 18px !important; }
+    [data-nav] [data-lang] { padding: 11px 18px !important; font-size: 11px !important; }
+    /* header iznad otvorenog menija */
+    [data-header] { z-index: 940 !important; }
+  }
+
+  /* ---- 768px: tablet portret, jedna kolona i mirnija tipografija ---- */
+  @media (max-width: 768px) {
+    [data-card] { align-items: start !important; }
+    /* dvokolonski redovi (usluge, proces, zašto) postaju jedna kolona */
+    [data-card][style*="grid-template-columns"] { gap: 12px !important; }
+    /* citati zauzimaju skoro ceo ekran */
+    [data-marquee-track] figure { flex-basis: min(88vw, 340px) !important; }
+    /* pomoćna vertikalna linija u heroju smeta na uskom ekranu */
+    #top > div[aria-hidden="true"]:last-child { display: none !important; }
+  }
+
+  /* ---- 480px: telefon ---- */
+  @media (max-width: 480px) {
+    [data-wa-card] { width: calc(100vw - 20px) !important; right: 10px !important; bottom: 10px !important; }
+    [data-wa-float] { right: 10px !important; bottom: 10px !important; }
+    [data-cookiebar] { left: 10px !important; right: 10px !important; bottom: 10px !important; padding: 16px !important; }
+    [data-cookiebar] > div { width: 100%; }
+    [data-cookiebar] button { flex: 1 1 0; min-height: 46px; }
+    /* dugmad i polja: pun red, lako pogodljivi */
+    [data-form] button[type="submit"], [data-form] [data-chip] { width: 100%; }
+    [data-form] [data-chip] { min-height: 46px; }
+    [data-magnetic] { width: 100%; min-height: 52px; }
+    [data-marquee-track] figure { flex-basis: 86vw !important; padding: 0 18px !important; }
+  }
+
+  /* ---- 380px: najuži telefoni ---- */
+  @media (max-width: 380px) {
+    [data-nav] { padding-top: 84px !important; }
+  }
+
+  /* Minimalni tap target na svim dodirnim ekranima */
+  @media (hover: none) and (pointer: coarse) {
+    a[href^="tel:"], a[href^="https://wa.me"], [data-chip], [data-lang], [data-cookie], [data-burger] { min-height: 44px; }
+    [data-cursor] { display: none !important; }
+  }
+
+  /* Space Grotesk nema ćirilicu, na ruskoj verziji naslovi idu u Golos Text (isti grotesk karakter) */
+  html[lang="ru"] h1, html[lang="ru"] h2, html[lang="ru"] h3, html[lang="ru"] blockquote p, html[lang="ru"] li span, html[lang="ru"] [data-count], html[lang="ru"] figcaption span { font-family: var(--font-display-cyr) !important; }
+
+/* ---- hover / focus stanja ---- */
+.i1:hover { background:rgba(255,255,255,.16) !important; color:var(--ink) !important; }
+.i2:hover { background:#1EBE5A !important; }
+.i3:hover { background:#1EBE5A !important; }
+.i4:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i5:hover { background:var(--accent-light) !important; }
+.i6:hover { border-color:rgba(var(--accent-rgb),.7) !important; }
+.i7:hover { border-color:rgba(var(--accent-rgb),.7) !important; color:var(--accent-light) !important; }
+.i8:hover { background:rgba(var(--accent-rgb),.16) !important; border-color:rgba(var(--accent-rgb),.85) !important; }
+.i9:hover { background:var(--accent-light) !important; }
+.i10:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i11:hover { border-top-color:rgba(var(--accent-rgb),.55) !important; }
+.i12:hover { border-top-color:rgba(var(--accent-rgb),.55) !important; }
+.i13:hover { border-top-color:rgba(var(--accent-rgb),.55) !important; }
+.i14:hover { border-top-color:rgba(var(--accent-rgb),.55) !important; }
+.i15:hover { background:var(--accent-light) !important; }
+.i16:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i17:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i18:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i19:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i20:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i21:hover { animation-play-state:paused !important; }
+.i22:hover { color:var(--accent-light) !important; }
+.i23:hover { color:var(--accent-light) !important; }
+.i24:hover { color:var(--accent-light) !important; }
+.i25:focus { border-color:rgba(var(--accent-rgb),.75) !important; }
+.i26:hover { background:#1EBE5A !important; }
+.i27:hover { color:var(--accent-light) !important; }
+.i28:hover { color:var(--accent-light) !important; }
+.i29:hover { color:var(--accent-light) !important; }
+.i30:hover { color:var(--accent-light) !important; }
+.i31:hover { color:var(--accent-light) !important; }
+.i32:hover { color:var(--accent-light) !important; }
+.i33:hover { color:var(--accent-light) !important; }
+.i34:hover { color:var(--accent-light) !important; }
