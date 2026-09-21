@@ -87,7 +87,6 @@
     ruDict() {
       return {
         'Usluge': 'Услуги',
-        'Uvoz': 'Импорт',
         'Kako radimo': 'Как мы работаем',
         'Zašto mi': 'Почему мы',
         'Kontakt': 'Контакт',
@@ -98,7 +97,7 @@
         'Beograd · auto-administracija': 'Белград · автомобильная администрация',
         'Sve rešavamo': 'Мы решаем всё',
         'umesto vas': 'вместо вас',
-        'Registracija, osiguranje, carina, rent a car, naplata štete. Ti predaš ključeve, dalje je naša stvar.': 'Регистрация, страхование, таможня, аренда авто, взыскание ущерба. Вы отдаёте ключи, остальное наша забота.',
+        'Registracija, osiguranje, rent a car, naplata štete. Ti predaš ključeve, dalje je naša stvar.': 'Регистрация, страхование, таможня, аренда авто, взыскание ущерба. Вы отдаёте ключи, остальное наша забота.',
         'Pozovi 062 350 950': 'Позвоните 062 350 950',
         'Pošalji upit': 'Отправить запрос',
         'Otvara WhatsApp sa već napisanom porukom. Pročitaj je pre nego što pošalješ.': 'Открывает WhatsApp с уже готовым сообщением. Прочитайте его перед отправкой.',
@@ -110,24 +109,22 @@
         'Taj dan poznajemo. Trošimo ga mi, umesto tebe.': 'Этот день нам знаком. Мы тратим его вместо вас.',
         '„Mi stojimo u redu i popunjavamo dokumentaciju, kako vi ne biste morali.”': '«Мы стоим в очереди и заполняем документы, чтобы вам не приходилось.»',
 
-        'Pet stvari koje': 'Пять вещей, которые',
+        'Četiri stvari koje': 'Четыре вещи, которые',
         'radimo za tebe': 'мы делаем за вас',
-        'Ništa više od toga. Ovih pet radimo kako treba.': 'Ничего больше. Эти пять делаем как надо.',
+        'Ništa više od toga. Ova četiri radimo kako treba.': 'Ничего больше. Эти четыре делаем как надо.',
 
         'Registracija vozila': 'Регистрация автомобиля',
         'Prva registracija, produženje, prenos na novog vlasnika, probne tablice. Nosimo dokumenta, čekamo u redu, vraćamo saobraćajnu.': 'Первая регистрация, продление, перевод на нового владельца, транзитные номера. Мы берём документы, стоим в очереди, привозим техпаспорт.',
         'Osiguranje i kasko': 'Страхование и каско',
         'Obavezno, kasko, zelena karta. Uporedimo ponude više kuća i kažemo ti šta za tvoj auto ima smisla, a šta ne.': 'ОСАГО, каско, зелёная карта. Сравниваем предложения нескольких компаний и говорим, что для вашего автомобиля имеет смысл, а что нет.',
-        'Auto iz Nemačke, Austrije, Italije. Špedicija, carinski papiri, atest, homologacija, registracija. Ti ne ideš ni na jedan šalter.': 'Автомобиль из Германии, Австрии, Италии. Экспедирование, таможенные документы, техническая экспертиза, омологация, регистрация. Вы не идёте ни в одно окошко.',
         'Rent a car': 'Аренда авто',
-        'Zamensko vozilo dok tvoj stoji u servisu ili na carini. Dostava na adresu, preuzimanje sa adrese.': 'Подменный автомобиль, пока ваш стоит в сервисе или на таможне. Доставка по адресу, забираем с адреса.',
+        'Zamensko vozilo dok tvoj stoji u servisu ili na tehničkom. Dostava na adresu, preuzimanje sa adrese.': 'Подменный автомобиль, пока ваш стоит в сервисе или на таможне. Доставка по адресу, забираем с адреса.',
         'Naplata štete od osiguranja': 'Взыскание ущерба со страховой',
         'Posle udesa u kome nisi kriv. Ti popuniš Evropski izveštaj. Mi preuzimamo ostale korake: procenu, prijavu, isplatu, servis.': 'После ДТП, в котором вы не виноваты. Вы заполняете европротокол. Остальные шаги берём мы, оценка, заявление, выплата, сервис.',
 
         'Beograd': 'Белград',
         'Registracija': 'Регистрация',
         'Osiguranje i kasko': 'Страхование и каско',
-        'Carina i uvoz': 'Таможня и импорт',
         'Naplata štete': 'Взыскание ущерба',
         'Najviše posla': 'Больше всего работы',
         'Partnerstvo': 'Партнёрство',
@@ -159,15 +156,7 @@
         'Šaltere i takse': 'Окошки и сборы',
         'Saobraćajnu u ruke': 'Техпаспорт в руки',
         'Ti predaš ključeve i staru saobraćajnu. Ništa više.': 'Вы отдаёте ключи и старый техпаспорт. Больше ничего.',
-        'I još: uvoz iz inostranstva': 'И ещё: импорт из-за границы',
-        'Transport, carina, takse, atest, homologacija, tablice. Pošalji nam oglas i broj šasije. Ukupan trošak ti kažemo pre nego što se bilo šta pokrene.': 'Транспорт, таможня, сборы, экспертиза, омологация, номера. Пришлите объявление и номер шасси, общую сумму скажем до того, как что-либо начнётся.',
-        'Pitaj za uvoz': 'Спросить об импорте',
         'Registracija': 'Регистрация',
-        'Našao si auto iz inostranstva?': 'Нашли автомобиль за границей?',
-        'Čestitamo': 'Поздравляем',
-        'Sada dolazi deo koji u oglasu ne piše: transport, carina, takse, atest, homologacija, tablice. Pola toga na jeziku koji ne govoriš, druga pola na šalterima koji te vraćaju.': 'Теперь начинается то, чего в объявлении не было: транспорт, таможня, сборы, экспертиза, омологация, номера. Половина на языке, которого вы не знаете, другая половина в окошках, которые отправляют вас обратно.',
-        'Pošalji nam oglas i broj šasije. Ukupan trošak ti kažemo pre nego što se bilo šta pokrene.': 'Пришлите нам объявление и номер шасси. Общую сумму скажем до того, как что-либо начнётся.',
-        'Mi ga dovozimo:': 'Мы привозим его:',
         'Registrovanog': 'Зарегистрированным',
         'Osiguranog': 'Застрахованным',
         'Spremnog za vožnju': 'Готовым к поездке',
@@ -202,7 +191,6 @@
         'kada': 'когда',
         'Registracija ističe ove nedelje, a ne znaš gde ti je stara polisa.': 'Регистрация истекает на этой неделе, а вы не знаете, где старый полис.',
         'Kupio si auto i treba prenos na tvoje ime.': 'Купили автомобиль, и нужен перевод на ваше имя.',
-        'Našao si auto u Nemačkoj i ne znaš odakle da počneš sa carinom.': 'Нашли автомобиль в Германии и не знаете, с чего начать с таможней.',
         'Auto ti je pao na tehničkom, pa treba popravka i ponovni izlazak.': 'Автомобиль не прошёл техосмотр, нужен ремонт и повторный визит.',
         'Neko te je udario, ti nisi kriv, i sad te šalju od šaltera do šaltera.': 'Вас ударили, вы не виноваты, и теперь вас отправляют от окошка к окошку.',
         'Treba ti zamensko vozilo za nedelju dana.': 'Нужен подменный автомобиль на неделю.',
@@ -210,7 +198,7 @@
 
         'Placeholder izjave, zameniti pravim rečima klijenata.': 'Placeholder-отзывы, заменить реальными словами клиентов.',
         '„Registracija mi je istekla u petak popodne. U ponedeljak sam imao saobraćajnu u ruci, a nisam izašao iz kancelarije.”': '«Регистрация истекла в пятницу днём. В понедельник техпаспорт был у меня в руках, и я не выходил из офиса.»',
-        '„Auto sam kupio u Minhenu. Nisam otišao ni na carinu ni u MUP. Doveli su mi ga registrovanog.”': '«Автомобиль купил в Мюнхене. Не ездил ни на таможню, ни в МВД. Привезли зарегистрированным.»',
+        '„Auto mi je pao na tehničkom. Oni su odradili popravku i ponovni izlazak. Ja sam samo došao po ključeve.”': '«Автомобиль купил в Мюнхене. Не ездил ни на таможню, ни в МВД. Привезли зарегистрированным.»',
         '„Posle udesa sam samo popunio Evropski. Ostalo su oni naplatili. Osiguranje nisam zvao ni jednom.”': '«После ДТП я только заполнил европротокол. Остальное они взыскали. В страховую не звонил ни разу.»',
 
         'Registracija ne čeka. Vožnja sa isteklim tablicama je prekršaj i naplaćuje se, ali najviše te košta dan koji posle izgubiš da to središ. Ako ti rok pada ovog meseca, jedan poziv danas rešava stvar.': 'Регистрация не ждёт. Езда с истекшими номерами, нарушение, и за него штрафуют, но дороже всего вам обойдётся день, потерянный потом на оформление. Если срок приходится на этот месяц, один звонок сегодня решает дело.',
@@ -551,36 +539,83 @@
           .from('#top h1 > span', { y: 34, opacity: 0, duration: 1.1, stagger: 0.09, ease: 'power3.out' }, 0.05)
           .to('#top [data-ul]', { scaleX: 1, duration: 1.1, ease: 'power2.inOut' }, 0.85);
 
-      /* Zlatna linija ispod ključne reči, iscrtava se na scroll */
-      gsap.utils.toArray('[data-ul]').forEach(line => {
-        if (line.closest('#top')) return;
-        this.reg(gsap.to(line, {
-          scaleX: 1, duration: 1.1, ease: 'power2.inOut',
-          scrollTrigger: { trigger: line, start: 'top 88%' }
+      /* Svaki element se animira TAČNO jednom. Ako je predak već animiran,
+         potomak se preskače: dve transformacije na istom čvoru izgledaju kao bag. */
+      const claimed = [];
+      const free = (el) => {
+        if (el.closest('#top')) return false;
+        if (claimed.some(c => c !== el && c.contains(el))) return false;
+        claimed.push(el);
+        return true;
+      };
+
+      /* 1. Naslovi sekcija: maska se podiže, tekst izlazi ispod nje.
+         Naslov je u omotaču sa overflow:hidden, pa deluje kao da se otkriva iza ivice. */
+      gsap.utils.toArray('section > div > h2, section > div > div > h2').forEach(el => {
+        if (!free(el)) return;
+        const w = document.createElement('span');
+        w.style.cssText = 'display:block;overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em';
+        el.parentNode.insertBefore(w, el);
+        w.appendChild(el);
+        this.reg(gsap.fromTo(el, { yPercent: 108 }, {
+          yPercent: 0, duration: 1.05, ease: 'expo.out', immediateRender: false,
+          scrollTrigger: { trigger: w, start: 'top 90%' }
         }));
       });
 
-      /* Blagi lift na kartice i redove */
+      /* 2. Redovi usluga i koraka: linija se izvuče s leva, pa sadržaj klizne za njom. */
       gsap.utils.toArray('[data-card]').forEach(card => {
-        this.reg(gsap.fromTo(card, { y: 30, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.95, ease: 'power3.out', immediateRender: false,
-          scrollTrigger: { trigger: card, start: 'top 90%' }
+        if (!free(card)) return;
+        const boxed = getComputedStyle(card).borderTopWidth !== '0px' && card.style.borderRadius === '';
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: card, start: 'top 88%' },
+          defaults: { ease: 'power3.out' }
+        });
+        if (boxed) {
+          // red sa linijom: prvo se linija izvuče, pa tekst
+          tl.fromTo(card, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.7 }, 0)
+            .fromTo(card.children, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, stagger: 0.08 }, 0.18);
+        } else {
+          // kartica: blagi lift uz otkrivanje odozdo
+          tl.fromTo(card, { y: 26, opacity: 0, clipPath: 'inset(12% 0 0 0)' },
+                          { y: 0, opacity: 1, clipPath: 'inset(0% 0 0 0)', duration: 0.9 }, 0);
+        }
+        this.triggers.push(tl.scrollTrigger);
+      });
+
+      /* 3. Ostali naslovi i sitni tekst */
+      gsap.utils.toArray('section h2, section h3').forEach(el => {
+        if (!free(el)) return;
+        this.reg(gsap.fromTo(el, { y: 22, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', immediateRender: false,
+          scrollTrigger: { trigger: el, start: 'top 91%' }
         }));
       });
       gsap.utils.toArray('[data-rise]').forEach(el => {
-        if (el.closest('#top')) return;
-        this.reg(gsap.fromTo(el, { y: 18, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', immediateRender: false,
-          scrollTrigger: { trigger: el, start: 'top 92%' }
+        if (!free(el)) return;
+        this.reg(gsap.fromTo(el, { y: 14, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.75, ease: 'power3.out', immediateRender: false,
+          scrollTrigger: { trigger: el, start: 'top 93%' }
         }));
       });
 
-      /* Naslovi sekcija */
-      gsap.utils.toArray('section h2, section h3').forEach(h => {
-        if (h.closest('#top')) return;
-        this.reg(gsap.fromTo(h, { y: 26, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.95, ease: 'power3.out', immediateRender: false,
-          scrollTrigger: { trigger: h, start: 'top 92%' }
+      /* 4. Chevron liste: stavke ulaze jedna za drugom, chevron stigne prvi. */
+      gsap.utils.toArray('ul').forEach(ul => {
+        const items = [...ul.children].filter(li => li.querySelector('[aria-hidden="true"]'));
+        if (items.length < 2 || ul.closest('#top')) return;
+        if (claimed.some(c => c.contains(ul))) return;
+        const tl = gsap.timeline({ scrollTrigger: { trigger: ul, start: 'top 88%' } });
+        tl.fromTo(items, { x: -14, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.07, ease: 'power3.out' }, 0)
+          .fromTo(items.map(li => li.firstElementChild), { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.07, ease: 'none' }, 0);
+        this.triggers.push(tl.scrollTrigger);
+      });
+
+      /* 5. Zlatna linija ispod ključne reči, iscrtava se na scroll */
+      gsap.utils.toArray('[data-ul]').forEach(line => {
+        if (line.closest('#top')) return;
+        this.reg(gsap.to(line, {
+          scaleX: 1, duration: 1, ease: 'power2.inOut',
+          scrollTrigger: { trigger: line, start: 'top 86%' }
         }));
       });
 
