@@ -4,13 +4,10 @@
    Prelomne tačke: 1200 / 1100 / 992 / 768 / 540 / 480 / 380 px.
    ============================================================ */
 :root {
-  /* Boje brenda */
   --black: #0A0A0A;             --black-rgb: 10,10,10;
   --ink: #F5F3EF;               --ink-rgb: 245,243,239;
   --accent: #C8C6C0;            --accent-rgb: 200,198,192;
   --accent-light: #E9E7E1;      --accent-light-rgb: 233,231,225;
-
-  /* Tipografija */
   --font-display: 'Space Grotesk', sans-serif;              /* naslovi */
   --font-body: 'Manrope', sans-serif;                       /* telo */
   --font-display-cyr: 'Golos Text', 'Manrope', sans-serif;  /* ruska verzija */
@@ -24,7 +21,6 @@ html { -webkit-text-size-adjust: 100%; }
   :focus-visible { outline: 2px solid #C8C6C0; outline-offset: 3px; }
   ::selection { background: #C8C6C0; color: #0A0A0A; }
   input, textarea, select, button { font-family: inherit; }
-  select option { background: #111; color: #F5F3EF; }
   @keyframes dl-grain { 0%,100% { transform: translate(0,0); } 20% { transform: translate(-2%,1%); } 40% { transform: translate(1%,-2%); } 60% { transform: translate(-1%,2%); } 80% { transform: translate(2%,-1%); } }
   @keyframes dl-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes dl-scroll-hint { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
@@ -47,6 +43,12 @@ html { -webkit-text-size-adjust: 100%; }
   /* Četiri koraka: 4 u redu, pa 2+2, pa 1. Nikad 3+1. */
   @media (max-width: 1100px) { [data-proces-grid] { grid-template-columns: repeat(2, 1fr) !important; } }
   @media (max-width: 540px)  { [data-proces-grid] { grid-template-columns: 1fr !important; } }
+
+  /* Čipovi usluga: uravnotežena 2×2 mreža umesto 3+1 preloma */
+  @media (min-width: 481px) {
+    [data-chips] { display: grid !important; grid-template-columns: 1fr 1fr; gap: 8px !important; }
+    [data-chips] [data-chip] { width: 100%; }
+  }
 
   /* ---- 1200px: uže margine, mirniji naslovi ---- */
   @media (max-width: 1200px) {
@@ -147,9 +149,8 @@ html { -webkit-text-size-adjust: 100%; }
   }
 
   /* Space Grotesk nema ćirilicu, na ruskoj verziji naslovi idu u Golos Text (isti grotesk karakter) */
-  html[lang="ru"] h1, html[lang="ru"] h2, html[lang="ru"] h3, html[lang="ru"] blockquote p, html[lang="ru"] li span, html[lang="ru"] [data-count], html[lang="ru"] figcaption span { font-family: var(--font-display-cyr) !important; }
+  html[lang="ru"] h1, html[lang="ru"] [data-h1], html[lang="ru"] h2, html[lang="ru"] h3, html[lang="ru"] blockquote p, html[lang="ru"] li span, html[lang="ru"] [data-count], html[lang="ru"] figcaption span { font-family: var(--font-display-cyr) !important; }
 
-/* Uvodni ekran se ne animira ako korisnik ne želi animacije */
 @media (prefers-reduced-motion: reduce) {
   [data-loader] { transition: none !important; }
   [data-loader] img, [data-loader] [data-loader-bar] { transition: none !important; opacity: 1 !important; transform: none !important; }
@@ -180,12 +181,15 @@ html { -webkit-text-size-adjust: 100%; }
 .i22:hover { color:var(--accent-light) !important; }
 .i23:hover { color:var(--accent-light) !important; }
 .i24:hover { color:var(--accent-light) !important; }
-.i25:focus { border-color:rgba(var(--accent-rgb),.75) !important; }
-.i26:hover { background:#1EBE5A !important; }
-.i27:hover { color:var(--accent-light) !important; }
-.i28:hover { color:var(--accent-light) !important; }
+.i25:hover { color:var(--accent-light) !important; }
+.i26:hover { color:var(--accent-light) !important; }
+.i27:focus { border-color:rgba(var(--accent-rgb),.75) !important; }
+.i28:hover { background:#1EBE5A !important; }
 .i29:hover { color:var(--accent-light) !important; }
 .i30:hover { color:var(--accent-light) !important; }
 .i31:hover { color:var(--accent-light) !important; }
 .i32:hover { color:var(--accent-light) !important; }
 .i33:hover { color:var(--accent-light) !important; }
+.i34:hover { color:var(--accent-light) !important; }
+.i35:hover { color:var(--accent-light) !important; }
+.i36:hover { color:var(--accent-light) !important; }

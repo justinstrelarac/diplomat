@@ -1,11 +1,10 @@
 /* ============================================================
    Diplomat Line, main.js
    Zahteva: gsap, ScrollTrigger, Lenis (učitani PRE ovog fajla).
+   Sav tekst je u index.html; ovaj fajl samo animira i menja jezik.
    ============================================================ */
 (function () {
   'use strict';
-
-  /* Podešavanja sajta */
   var CONFIG = {
     defaultLang: 'sr',   // 'sr' | 'en' | 'ru', jezik na prvom učitavanju
     grain: true,         // filmsko zrno preko crne
@@ -68,7 +67,7 @@
         nodes.forEach(n => {
           n.innerHTML = lang === 'en' ? n.dataset.en : (lang === 'ru' ? ruFor(n.dataset.sr) : n.dataset.sr);
         });
-        document.documentElement.lang = lang === 'en' ? 'en' : (lang === 'ru' ? 'ru' : 'sr');
+        document.documentElement.lang = lang === 'en' ? 'en' : (lang === 'ru' ? 'ru' : 'sr-Latn');
         btns.forEach(b => {
           const active = b.dataset.lang === lang;
           b.style.background = active ? '#C8C6C0' : 'transparent';
@@ -132,8 +131,10 @@
         'Tu smo na WhatsAppu': 'Мы на связи в WhatsApp',
         'Pošalji registarsku oznaku i rok. Cenu i datum dobijaš isti dan, bez poziva i bez čekanja na šalteru.': 'Пришлите номер и срок. Цену и дату получите в тот же день, без звонков и без ожидания в окошке.',
         'Otvori prepisku': 'Открыть переписку',
+        'Mejl': 'Эл. почта',
         'Preskoči na sadržaj': 'Перейти к содержанию',
         'Piši nam': 'Напишите нам',
+        'Pon–pet, 9–17h': 'Пн–пт, 9–17 ч',
         'odgovaramo isti dan': 'отвечаем в тот же день',
         'Šta ti treba?': 'Что вам нужно?',
         'Koji auto i do kada': 'Какой автомобиль и до какого срока',
@@ -191,12 +192,9 @@
         'kada': 'когда',
         'Registracija ističe ove nedelje, a ne znaš gde ti je stara polisa.': 'Регистрация истекает на этой неделе, а вы не знаете, где старый полис.',
         'Kupio si auto i treba prenos na tvoje ime.': 'Купили автомобиль, и нужен перевод на ваше имя.',
-        'Auto ti je pao na tehničkom, pa treba popravka i ponovni izlazak.': 'Автомобиль не прошёл техосмотр, нужен ремонт и повторный визит.',
         'Neko te je udario, ti nisi kriv, i sad te šalju od šaltera do šaltera.': 'Вас ударили, вы не виноваты, и теперь вас отправляют от окошка к окошку.',
         'Treba ti zamensko vozilo za nedelju dana.': 'Нужен подменный автомобиль на неделю.',
         'Nemaš vremena. To je dovoljan razlog.': 'У вас нет времени. Это достаточная причина.',
-
-        'Placeholder izjave, zameniti pravim rečima klijenata.': 'Placeholder-отзывы, заменить реальными словами клиентов.',
         '„Registracija mi je istekla u petak popodne. U ponedeljak sam imao saobraćajnu u ruci, a nisam izašao iz kancelarije.”': '«Регистрация истекла в пятницу днём. В понедельник техпаспорт был у меня в руках, и я не выходил из офиса.»',
         '„Auto mi je pao na tehničkom. Oni su odradili popravku i ponovni izlazak. Ja sam samo došao po ključeve.”': '«Автомобиль купил в Мюнхене. Не ездил ни на таможню, ни в МВД. Привезли зарегистрированным.»',
         '„Posle udesa sam samo popunio Evropski. Ostalo su oni naplatili. Osiguranje nisam zvao ni jednom.”': '«После ДТП я только заполнил европротокол. Остальное они взыскали. В страховую не звонил ни разу.»',
@@ -341,9 +339,8 @@
       sync();
     }
 
-    /* Video se učitava samo ako fajl postoji, inače ostaje poster (hero.jpg),
-       bez greške u konzoli. Putanja je u data-src atributu. */
-    /* Video se prikazuje tek kad počne da svira, do tada stoji fotografija. */
+    /* Video se učitava samo ako fajl postoji (putanja u data-src), bez greške u konzoli.
+       Prikazuje se tek kad počne da svira, do tada stoji fotografija hero.webp. */
     setupHeroVideo() {
       const v = document.querySelector('[data-hero-video]');
       if (!v || !v.dataset.src || this.reduced) return;
@@ -435,12 +432,12 @@
         }, 1100);
       };
 
-      // čeka logo i hero fotku, ali ne duže od 2.6s
+      // čeka logo i hero fotku, ali ne duže od 1.5s
       const hero = document.querySelector('#top img');
       const waits = [logo, hero].filter(Boolean).map(img => img.complete ? Promise.resolve()
         : new Promise(res => { img.addEventListener('load', res, { once: true }); img.addEventListener('error', res, { once: true }); }));
-      Promise.all(waits).then(() => setTimeout(done, 620));
-      setTimeout(done, 2600);
+      Promise.all(waits).then(() => setTimeout(done, 250));
+      setTimeout(done, 1500);
     }
 
     setupNav() {
@@ -535,8 +532,8 @@
 
       /* Hero ulaz */
       const hero = gsap.timeline({ delay: 0.15 });
-      hero.from('#top [data-rise]', { y: 22, opacity: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out' }, 0)
-          .from('#top h1 > span', { y: 34, opacity: 0, duration: 1.1, stagger: 0.09, ease: 'power3.out' }, 0.05)
+      hero.from('#top [data-rise]', { y: 22, duration: 0.9, stagger: 0.1, ease: 'power3.out' }, 0)
+          .from('#top h1 > span:first-child, #top [data-h1] > span', { y: 34, duration: 1.1, stagger: 0.09, ease: 'power3.out' }, 0.05)
           .to('#top [data-ul]', { scaleX: 1, duration: 1.1, ease: 'power2.inOut' }, 0.85);
 
       /* Svaki element se animira TAČNO jednom. Ako je predak već animiran,
