@@ -30,6 +30,19 @@ html { -webkit-text-size-adjust: 100%; }
   h1, h2, h3, blockquote p { text-wrap: balance; }
   p, li span, figcaption { text-wrap: pretty; }
 
+
+  /* Hero fotografija je portretna (1179 px): na širokom ekranu stoji desno, u svojoj
+     pravoj veličini, i utapa se u crnu levo. Tako se ne razvlači i ostaje oštra. */
+  @media (min-width: 992px) {
+    [data-hero-media] {
+      left: auto !important;
+      width: min(58%, 1100px) !important;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+              mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+    }
+    [data-hero-media] img { object-position: 50% 38% !important; }
+  }
+
   /* ============================================================
      RESPONZIVNOST
      Osnovni raspored je fluidan (clamp / auto-fit grid). Ovde su
