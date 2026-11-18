@@ -2,6 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://diplomatline.rs/</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://diplomatline.rs/registracija-vozila/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://diplomatline.rs/naplata-stete-od-osiguranja/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://diplomatline.rs/prenos-vlasnistva-vozila/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://diplomatline.rs/rent-a-car/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://diplomatline.rs/kontakt/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://diplomatline.rs/politika-privatnosti.html</loc>
+    <lastmod>2026-11-17</lastmod>
   </url>
 </urlset>

@@ -1,15 +1,18 @@
 /* ============================================================
    Diplomat Line, main.js
-   Zahteva: gsap, ScrollTrigger, Lenis (učitani PRE ovog fajla).
+   Zahteva: gsap i ScrollTrigger (učitani PRE ovog fajla). Lenis je opcion.
+   Sav tekst je u HTML-u; ovaj fajl samo animira i menja jezik.
    ============================================================ */
 (function () {
   'use strict';
-
-  /* Podešavanja sajta */
+  // MIRAN STIL: klasa "mirno" na <html> isključuje efekte (vidi kraj css/style.css).
+  // Glatki skrol (Lenis) se više ne učitava; bez klase "mirno" skrol je običan.
+  var MIRNO = document.documentElement.classList.contains('mirno');
   var CONFIG = {
     defaultLang: 'sr',   // 'sr' | 'en' | 'ru', jezik na prvom učitavanju
-    grain: true,         // filmsko zrno preko crne
-    customCursor: true   // svetli kurzor na desktopu
+    grain: !MIRNO,       // filmsko zrno preko crne
+    customCursor: !MIRNO, // svetli kurzor na desktopu
+    mirno: MIRNO         // bez uvodnog ekrana, glatkog skrola, magnetnih dugmadi i prozora koji sam iskače
   };
 
   class DiplomatLine {
@@ -27,6 +30,7 @@
       this.setupForm();
       this.setupChips();
       this.setupCookieBar();
+      this.setupMap();
       this.setupHeroVideo();
       this.waitFor(() => window.gsap && window.ScrollTrigger, () => this.setupMotion());
     }
@@ -68,7 +72,7 @@
         nodes.forEach(n => {
           n.innerHTML = lang === 'en' ? n.dataset.en : (lang === 'ru' ? ruFor(n.dataset.sr) : n.dataset.sr);
         });
-        document.documentElement.lang = lang === 'en' ? 'en' : (lang === 'ru' ? 'ru' : 'sr');
+        document.documentElement.lang = lang === 'en' ? 'en' : (lang === 'ru' ? 'ru' : 'sr-Latn');
         btns.forEach(b => {
           const active = b.dataset.lang === lang;
           b.style.background = active ? '#C8C6C0' : 'transparent';
@@ -89,52 +93,74 @@
         'Usluge': 'Услуги',
         'Kako radimo': 'Как мы работаем',
         'Zašto mi': 'Почему мы',
-        'Kontakt': 'Контакт',
+        'Kontakt': 'Контакты',
         'Klijenti': 'Клиенты',
         'Problem': 'Проблема',
         'P.S.': 'P.S.',
 
-        'Beograd · auto-administracija': 'Белград · автомобильная администрация',
-        'Sve rešavamo': 'Мы решаем всё',
-        'umesto vas': 'вместо вас',
-        'Registracija, osiguranje, rent a car, naplata štete. Ti predaš ključeve, dalje je naša stvar.': 'Регистрация, страхование, таможня, аренда авто, взыскание ущерба. Вы отдаёте ключи, остальное наша забота.',
+        'Registracija vozila · Novi Beograd': 'Регистрация автомобилей · Новый Белград',
+        'Sve o registraciji ›': 'Всё о регистрации ›',
+        'Sve o rent a car usluzi ›': 'Всё об аренде авто ›',
+        'Sve o naplati štete ›': 'Всё о взыскании ущерба ›',
+        'Kontakt i kako do nas ›': 'Контакты и как добраться ›',
+        'Prenos vlasništva vozila': 'Переоформление автомобиля',
+        'Kako do nas i radno vreme': 'Как добраться и часы работы',
+        '„Mi rešavamo sve, umesto tebe.”': '«Мы решаем всё за вас».',
+        'Registruj auto na Novom Beogradu,': 'Зарегистрируйте авто в Новом Белграде,',
+        'bez čekanja': 'без ожидания',
+        'u redu': 'в очереди',
+        'Registracija i osiguranje vozila na Novom Beogradu, uz rent a car i naplatu štete. Ti predaš ključeve, dalje je naša stvar.': 'Регистрация и страхование автомобилей в Новом Белграде, а также аренда авто и взыскание ущерба. Вы передаёте ключи, остальное — наша забота.',
+        'Sve oko auta, na': 'Всё для вашего авто, в',
+        'jednom mestu': 'одном месте',
+        'Obavezno, kasko, zelena karta. Polisu sređujemo zajedno sa registracijom, pa ne ideš posebno u osiguranje.': 'ОСАГО, каско, зелёная карта. Полис оформляем вместе с регистрацией, отдельно ехать в страховую не нужно.',
+        'Vozilo preuzimamo i vraćamo na tvoju adresu, bilo gde u Beogradu.': 'Забираем и возвращаем автомобиль по вашему адресу, в любой точке Белграда.',
+        'Saobraćajna dozvola': 'Свидетельство о регистрации (техпаспорт)',
+        'Lična karta vlasnika vozila': 'Удостоверение личности владельца',
+        'Ključevi, za tehnički pregled': 'Ключи (для техосмотра)',
+        'Ovlašćenje za registraciju, dobiješ ga od nas na potpis': 'Доверенность на регистрацию (мы дадим её вам на подпись)',
+        'Za prenos vlasništva: overen kupoprodajni ugovor': 'При смене владельца: заверенный договор купли-продажи',
+        'Za vozilo na firmu: rešenje iz APR-a i ovlašćenje firme': 'Для автомобиля на компанию: выписка из реестра APR и доверенность от компании',
+        'Šta ti treba za registraciju': 'Что нужно для регистрации',
+        'Polisu, tehnički pregled, takse i porez sređujemo mi.': 'Полис, техосмотр, госпошлины и налог берём на себя.',
+        'BG Diplomat je naša partnerska firma za limo i transfer usluge. Dve odvojene firme koje rade po istim standardima.': 'BG Diplomat — наша партнёрская компания по лимузинам и трансферам. Две отдельные компании, работающие по одним и тем же стандартам.',
+        'Naš partner: BG Diplomat': 'Наш партнёр: BG Diplomat',
+        'Partner: BG Diplomat': 'Партнёр: BG Diplomat',
+        'Sve recenzije na Google-u': 'Все отзывы в Google',
+        'Parking: pozovi kad stigneš da ti podignemo rampu, ili parkiraj odmah pored lokala.': 'Парковка: позвоните, когда приедете, и мы поднимем шлагбаум, или паркуйтесь прямо рядом с офисом.',
+        'Politika privatnosti': 'Политика конфиденциальности',
         'Pozovi 062 350 950': 'Позвоните 062 350 950',
-        'Pošalji upit': 'Отправить запрос',
-        'Otvara WhatsApp sa već napisanom porukom. Pročitaj je pre nego što pošalješ.': 'Открывает WhatsApp с уже готовым сообщением. Прочитайте его перед отправкой.',
 
         'Red pred šalterom se ne pomera.': 'Очередь у окошка не двигается.',
         'Tvoj': 'Ваш',
         'dan se troši': 'день уходит',
         'Registracija ističe u petak. Na tehničkom je red, polisa je negde u fioci, šalter radi do tri, a ti imaš svoj posao. Onda ti kažu da fali jedan papir i sve počinje ispočetka sutra.': 'Регистрация истекает в пятницу. На техосмотре очередь, полис где-то в ящике, окошко работает до трёх, а у вас своя работа. Потом говорят, что не хватает одной бумаги, и завтра всё начинается заново.',
         'Taj dan poznajemo. Trošimo ga mi, umesto tebe.': 'Этот день нам знаком. Мы тратим его вместо вас.',
-        '„Mi stojimo u redu i popunjavamo dokumentaciju, kako vi ne biste morali.”': '«Мы стоим в очереди и заполняем документы, чтобы вам не приходилось.»',
+        '„Mi stojimo u redu i popunjavamo dokumentaciju, kako ti ne bi morao.”': '«Мы стоим в очереди и заполняем документы, чтобы вам не пришлось».',
 
-        'Četiri stvari koje': 'Четыре вещи, которые',
-        'radimo za tebe': 'мы делаем за вас',
-        'Ništa više od toga. Ova četiri radimo kako treba.': 'Ничего больше. Эти четыре делаем как надо.',
+        'Ništa više od toga. Ova četiri radimo kako treba.': 'Ничего лишнего. Эти четыре услуги мы делаем как следует.',
 
-        'Registracija vozila': 'Регистрация автомобиля',
-        'Prva registracija, produženje, prenos na novog vlasnika, probne tablice. Nosimo dokumenta, čekamo u redu, vraćamo saobraćajnu.': 'Первая регистрация, продление, перевод на нового владельца, транзитные номера. Мы берём документы, стоим в очереди, привозим техпаспорт.',
+        'Registracija vozila': 'Регистрация автомобилей',
+        'Prva registracija, produženje, prenos na novog vlasnika, probne tablice. Nosimo dokumenta, čekamo u redu, vraćamo saobraćajnu.': 'Первая регистрация, продление, переоформление на нового владельца, транзитные номера. Относим документы, стоим в очередях, возвращаем вам техпаспорт.',
         'Osiguranje i kasko': 'Страхование и каско',
-        'Obavezno, kasko, zelena karta. Uporedimo ponude više kuća i kažemo ti šta za tvoj auto ima smisla, a šta ne.': 'ОСАГО, каско, зелёная карта. Сравниваем предложения нескольких компаний и говорим, что для вашего автомобиля имеет смысл, а что нет.',
         'Rent a car': 'Аренда авто',
-        'Zamensko vozilo dok tvoj stoji u servisu ili na tehničkom. Dostava na adresu, preuzimanje sa adrese.': 'Подменный автомобиль, пока ваш стоит в сервисе или на таможне. Доставка по адресу, забираем с адреса.',
+        'Zamensko vozilo dok tvoje stoji u servisu ili na tehničkom. Dostava na adresu, preuzimanje sa adrese.': 'Подменный автомобиль, пока ваш стоит в сервисе или на техосмотре. Привезём и заберём по вашему адресу.',
         'Naplata štete od osiguranja': 'Взыскание ущерба со страховой',
-        'Posle udesa u kome nisi kriv. Ti popuniš Evropski izveštaj. Mi preuzimamo ostale korake: procenu, prijavu, isplatu, servis.': 'После ДТП, в котором вы не виноваты. Вы заполняете европротокол. Остальные шаги берём мы, оценка, заявление, выплата, сервис.',
+        'Posle udesa u kome nisi kriv. Ti popuniš Evropski izveštaj. Mi preuzimamo ostale korake: procenu, prijavu, isplatu, servis.': 'После ДТП, в котором вы не виноваты. Вы заполняете европротокол. Остальное берём на себя: оценку, заявление, выплату, ремонт.',
 
-        'Beograd': 'Белград',
+        'Novi Beograd': 'Новый Белград',
         'Registracija': 'Регистрация',
-        'Osiguranje i kasko': 'Страхование и каско',
         'Naplata štete': 'Взыскание ущерба',
-        'Najviše posla': 'Больше всего работы',
+        'Najviše posla': 'Основное направление',
         'Partnerstvo': 'Партнёрство',
         'Piši nam na WhatsApp': 'Напишите нам в WhatsApp',
         'Tu smo na WhatsAppu': 'Мы на связи в WhatsApp',
-        'Pošalji registarsku oznaku i rok. Cenu i datum dobijaš isti dan, bez poziva i bez čekanja na šalteru.': 'Пришлите номер и срок. Цену и дату получите в тот же день, без звонков и без ожидания в окошке.',
-        'Otvori prepisku': 'Открыть переписку',
+        'Pošalji registarsku oznaku i rok. Cenu i datum dobijaš isti dan, bez poziva i bez čekanja na šalteru.': 'Пришлите госномер и срок. Цену и дату узнаете в тот же день, без звонков и без ожидания у окошка.',
+        'Otvori prepisku': 'Открыть чат',
         'Mejl': 'Эл. почта',
+        'Telefon': 'Телефон',
         'Preskoči na sadržaj': 'Перейти к содержанию',
         'Piši nam': 'Напишите нам',
+        'Pon–pet, 9–17h': 'Пн–пт, 9:00–17:00',
         'odgovaramo isti dan': 'отвечаем в тот же день',
         'Šta ti treba?': 'Что вам нужно?',
         'Koji auto i do kada': 'Какой автомобиль и до какого срока',
@@ -144,72 +170,49 @@
         'Koristimo samo kolačiće koji su potrebni da sajt radi.': 'Мы используем только те файлы cookie, которые нужны для работы сайта.',
         'Odbij': 'Отклонить',
         'Prihvati': 'Принять',
-        '„Dok mi je auto bio u servisu, dobio sam zamensko na adresu za dva sata. Nisam ni tražio, sami su ponudili.”': '«Пока мой автомобиль был в сервисе, подменный привезли по адресу за два часа. Я даже не просил, предложили сами.»',
+        '„Dok mi je auto bio u servisu, dobio sam zamensko na adresu za dva sata. Nisam ni tražio, sami su ponudili.”': '«Пока моя машина была в сервисе, подменную мне привезли по адресу за два часа. Я даже не просил, сами предложили».',
         'Registracija i tehnički pregled': 'Регистрация и техосмотр',
         'Registracija ističe?': 'Регистрация истекает?',
-        'To je': 'Это',
-        'jedan poziv': 'один звонок',
-        'Ovo je najveći deo našeg posla. Produženje, prva registracija, prenos na novog vlasnika, sa tehničkim pregledom i polisom istog dana, bez da ti izlaziš iz kancelarije.': 'Это большая часть нашей работы. Продление, первая регистрация, перевод на нового владельца, с техосмотром и полисом в тот же день, без того чтобы вы выходили из офиса.',
-        'Ako ti rok ističe ove nedelje, javi se danas. Ne mora da bude gotovo sutra. Može danas.': 'Если срок истекает на этой неделе, позвоните сегодня. Не обязательно готово завтра, может быть готово сегодня.',
-        'Mi sređujemo:': 'Мы улаживаем:',
+        'To je': 'Хватит',
+        'jedan poziv': 'одного звонка',
+        'Ovo je najveći deo našeg posla. Produženje, prva registracija, prenos na novog vlasnika, sa tehničkim pregledom i polisom istog dana, a da ti ne izlaziš iz kancelarije.': 'Это основная часть нашей работы. Продление, первая регистрация, переоформление на нового владельца, с техосмотром и полисом в тот же день, и вам не нужно выходить из офиса.',
+        'Ako ti rok ističe ove nedelje, javi se danas. Ne mora da bude gotovo sutra. Može danas.': 'Если срок истекает на этой неделе, позвоните сегодня. Готово может быть не завтра, а уже сегодня.',
+        'Mi sređujemo:': 'Мы берём на себя:',
         'Tehnički pregled': 'Техосмотр',
         'Osiguranje i polisu': 'Страхование и полис',
-        'Šaltere i takse': 'Окошки и сборы',
+        'Šaltere i takse': 'Окошки и госпошлины',
         'Saobraćajnu u ruke': 'Техпаспорт в руки',
         'Ti predaš ključeve i staru saobraćajnu. Ništa više.': 'Вы отдаёте ключи и старый техпаспорт. Больше ничего.',
-        'Registracija': 'Регистрация',
-        'Registrovanog': 'Зарегистрированным',
-        'Osiguranog': 'Застрахованным',
-        'Spremnog za vožnju': 'Готовым к поездке',
-        'Ti dolaziš po ključeve.': 'Вы приезжаете за ключами.',
 
         'Četiri koraka. Tri su': 'Четыре шага. Три из них',
         'naša': 'наши',
         'Javiš se': 'Вы связываетесь с нами',
         'Jedan poziv ili jedna poruka na Instagramu. Kažeš koji je auto i šta mu treba. Cenu i rok saznaješ odmah.': 'Один звонок или одно сообщение в Instagram. Говорите, какой автомобиль и что ему нужно. Цену и срок узнаёте сразу.',
         'Predaš ključeve i dokumenta': 'Отдаёте ключи и документы',
-        'U Beogradu, gde ti je zgodnije. Možemo i da preuzmemo na tvojoj adresi. Od tog trenutka nemaš više šta da radiš.': 'В Белграде, где вам удобнее. Можем забрать и по вашему адресу. С этого момента вам больше нечего делать.',
-        'Mi stojimo u redovima i sređujemo sve': 'Мы стоим в очередях и всё улаживаем',
+        'U Beogradu, gde ti je zgodnije. Možemo i da ih preuzmemo na tvojoj adresi. Od tog trenutka nemaš više šta da radiš.': 'В Белграде, где вам удобнее. Можем забрать и по вашему адресу. С этого момента вам больше нечего делать.',
+        'Mi stojimo u redovima i sređujemo sve': 'Мы стоим в очередях и решаем все вопросы',
         'Tehnički, osiguranje, šalteri, pečati. Ako nešto fali, rešavamo sami i javljamo ti kad je rešeno.': 'Техосмотр, страхование, окошки, печати. Если чего-то не хватает, решаем сами и сообщаем, когда готово.',
-        'Dobiješ gotovo': 'Получаете готовое',
-        'Ključevi, saobraćajna, polisa, računi. U ruke, bez čekanja. To je cela tvoja obaveza.': 'Ключи, техпаспорт, полис, счета. В руки, без ожидания. Это вся ваша обязанность.',
+        'Dobiješ gotovo': 'Получаете всё готовым',
+        'Ključevi, saobraćajna, polisa, računi. U ruke, bez čekanja. To je cela tvoja obaveza.': 'Ключи, техпаспорт, полис, квитанции. Прямо в руки, без ожидания. Больше от вас ничего не требуется.',
 
-        'Zašto nam ljudi daju': 'Почему люди отдают нам',
+        'Zašto nam ljudi daju': 'Почему люди доверяют нам',
         'svoje ključeve': 'свои ключи',
-        'usluga': 'услуг',
-        'poziv': 'звонок',
         'Čovek, a ne šalter': 'Человек, а не окошко',
-        'Imaš jedan broj i jednog čoveka koji zna gde je tvoj slučaj. Bez brojeva pod kojima si zaveden i bez „javite se sutra”.': 'У вас один номер и один человек, который знает, где ваше дело. Без номеров в системе и без «позвоните завтра».',
-        'Uz BG Diplomat': 'Вместе с BG Diplomat',
-        'Isti tim koji u BG Diplomatu vozi klijente radi i tvoju administraciju. Same team, same standards.': 'Та же команда, которая в BG Diplomat возит клиентов, ведёт и вашу администрацию. Same team, same standards.',
+        'Imaš jedan broj i jednog čoveka koji zna gde je tvoj slučaj. Bez brojeva pod kojima si zaveden i bez „javite se sutra”.': 'У вас один номер и один человек, который знает, на каком этапе ваше дело. Без номеров в системе и без «позвоните завтра».',
         'bgdiplomat.com': 'bgdiplomat.com',
-        'Rutina, ne improvizacija': 'Рутина, а не импровизация',
+        'Rutina, ne improvizacija': 'Опыт, а не импровизация',
         'Znamo koji red se kad kreće, koji papir gde treba i šta se gleda pre tehničkog. Zato nam treba dan, a tebi bi nedelja.': 'Знаем, какая очередь когда двигается, какая бумага где нужна и что смотрят перед техосмотром. Поэтому нам нужен день, а вам понадобилась бы неделя.',
-        'Cenu dogovaramo pre, ne posle.': 'Цену согласовываем до, а не после.',
-        'Bez skrivenih troškova i bez „iskrslo je još nešto”.': 'Без скрытых расходов и без «появилось ещё кое-что».',
+        'Cenu dogovaramo pre, ne posle.': 'Цену согласовываем заранее, а не после.',
+        'Bez skrivenih troškova i bez „iskrslo je još nešto”.': 'Без скрытых расходов и без «тут всплыло ещё кое-что».',
 
-        'Zovi nas': 'Звоните нам',
-        'kada': 'когда',
-        'Registracija ističe ove nedelje, a ne znaš gde ti je stara polisa.': 'Регистрация истекает на этой неделе, а вы не знаете, где старый полис.',
-        'Kupio si auto i treba prenos na tvoje ime.': 'Купили автомобиль, и нужен перевод на ваше имя.',
-        'Neko te je udario, ti nisi kriv, i sad te šalju od šaltera do šaltera.': 'Вас ударили, вы не виноваты, и теперь вас отправляют от окошка к окошку.',
-        'Treba ti zamensko vozilo za nedelju dana.': 'Нужен подменный автомобиль на неделю.',
-        'Nemaš vremena. To je dovoljan razlog.': 'У вас нет времени. Это достаточная причина.',
+        '„Registracija mi je istekla u petak popodne. U ponedeljak sam imao saobraćajnu u ruci, a nisam izašao iz kancelarije.”': '«Регистрация истекла в пятницу после обеда. В понедельник техпаспорт уже был у меня в руках, а я даже не выходил из офиса».',
+        '„Auto mi je pao na tehničkom. Oni su odradili popravku i ponovni izlazak. Ja sam samo došao po ključeve.”': '«Машина не прошла техосмотр. Ремонт и повторный техосмотр они взяли на себя. Я только приехал за ключами».',
+        '„Posle udesa sam samo popunila Evropski. Ostalo su oni naplatili. Osiguranje nisam zvala nijednom.”': '«После ДТП я только заполнила европротокол. Всё остальное, вплоть до выплаты, сделали они. В страховую я не звонила ни разу».',
 
-        'Placeholder izjave, zameniti pravim rečima klijenata.': 'Placeholder-отзывы, заменить реальными словами клиентов.',
-        '„Registracija mi je istekla u petak popodne. U ponedeljak sam imao saobraćajnu u ruci, a nisam izašao iz kancelarije.”': '«Регистрация истекла в пятницу днём. В понедельник техпаспорт был у меня в руках, и я не выходил из офиса.»',
-        '„Auto mi je pao na tehničkom. Oni su odradili popravku i ponovni izlazak. Ja sam samo došao po ključeve.”': '«Автомобиль купил в Мюнхене. Не ездил ни на таможню, ни в МВД. Привезли зарегистрированным.»',
-        '„Posle udesa sam samo popunio Evropski. Ostalo su oni naplatili. Osiguranje nisam zvao ni jednom.”': '«После ДТП я только заполнил европротокол. Остальное они взыскали. В страховую не звонил ни разу.»',
-
-        'Registracija ne čeka. Vožnja sa isteklim tablicama je prekršaj i naplaćuje se, ali najviše te košta dan koji posle izgubiš da to središ. Ako ti rok pada ovog meseca, jedan poziv danas rešava stvar.': 'Регистрация не ждёт. Езда с истекшими номерами, нарушение, и за него штрафуют, но дороже всего вам обойдётся день, потерянный потом на оформление. Если срок приходится на этот месяц, один звонок сегодня решает дело.',
+        'Registracija ne čeka. Vožnja sa isteklim tablicama je prekršaj i naplaćuje se, ali najviše te košta dan koji posle izgubiš da to središ. Ako ti rok pada ovog meseca, jedan poziv danas rešava stvar.': 'Регистрация не ждёт. Ездить с просроченной регистрацией — нарушение, за него штрафуют, но дороже всего обойдётся день, который вы потом потратите на оформление. Если срок выпадает на этот месяц, один звонок сегодня решит вопрос.',
         'Predaj': 'Отдайте',
         'ključeve': 'ключи',
-        'Pozovi, ili nam piši na WhatsApp i reci šta autu treba. Odgovaramo isti dan i kažemo cenu i rok.': 'Позвоните или напишите нам в WhatsApp, скажите, что нужно автомобилю. Отвечаем в тот же день и говорим цену и срок.',
-        'Usluga': 'Услуга',
-
-
-        '„Mi rešavamo sve, umesto vas.”': '«Мы решаем всё, вместо вас.»',
-        'Auto-administracija · Beograd': 'Автомобильная администрация · Белград'
+        'Pozovi ili nam piši na WhatsApp i reci šta autu treba. Odgovaramo isti dan i kažemo cenu i rok.': 'Позвоните или напишите нам в WhatsApp и скажите, что нужно автомобилю. Отвечаем в тот же день и называем цену и срок.',
       };
     }
 
@@ -294,7 +297,7 @@
 
       const onScroll = () => {
         const passed = window.scrollY > hero.offsetHeight * 0.75;
-        if (passed && phase === 'pre') { if (this.reduced) toFloat(); else openCard(); }
+        if (passed && phase === 'pre') { if (this.reduced || CONFIG.mirno) toFloat(); else openCard(); }
         if (!passed && phase === 'float') { vis(wa, false, 14); phase = 'pre'; }
       };
       this.on(window, 'scroll', onScroll, { passive: true });
@@ -320,7 +323,7 @@
     /* Čipovi za izbor usluge, vrednost ide u skriveni input, pa i u WhatsApp poruku */
     setupChips() {
       const chips = Array.from(document.querySelectorAll('[data-chip]'));
-      const field = document.querySelector('input[name="usluga"]');
+      const field = document.querySelector('[data-usluga]');
       if (!chips.length || !field) return;
       const sync = () => {
         const picked = [];
@@ -333,6 +336,7 @@
           if (on) picked.push(c.textContent.trim());
         });
         field.value = picked.join(', ');
+        this.paintPreview();   // pregled poruke prati izabrane usluge
       };
       chips.forEach(c => {
         c.dataset.on = '0';
@@ -341,9 +345,8 @@
       sync();
     }
 
-    /* Video se učitava samo ako fajl postoji, inače ostaje poster (hero.jpg),
-       bez greške u konzoli. Putanja je u data-src atributu. */
-    /* Video se prikazuje tek kad počne da svira, do tada stoji fotografija. */
+    /* Video se učitava samo ako fajl postoji (putanja u data-src), bez greške u konzoli.
+       Prikazuje se tek kad počne da svira, do tada stoji fotografija hero.webp. */
     setupHeroVideo() {
       const v = document.querySelector('[data-hero-video]');
       if (!v || !v.dataset.src || this.reduced) return;
@@ -373,6 +376,39 @@
       });
     }
 
+    /* Google mapa (strana Kontakt) se učitava tek na klik „Prikaži mapu”, bez obzira na izbor
+       o kolačićima. Mapa stoji u <template>, pa dok posetilac ne klikne, pregledač se ne
+       povezuje sa Google mapama. Klik na dugme se ne pamti, za razliku od izbora o kolačićima:
+       na sledećoj poseti opet se čeka klik. */
+    setupMap() {
+      const box = document.querySelector('[data-map]');
+      if (!box) return;
+      const btn = box.querySelector('[data-map-load]');
+      const tpl = box.querySelector('template[data-map-frame]');
+      if (!btn || !tpl || !tpl.content) return;
+      this.on(btn, 'click', (ev) => {
+        const frag = document.importNode(tpl.content, true);
+        const frame = frag.querySelector('iframe');
+        if (!frame) return;
+        const ph = box.querySelector('[data-map-placeholder]');
+        box.appendChild(frag);
+        if (ph) ph.remove();
+        // fokus ide na mapu, da se korisnik tastature ne vrati na vrh strane
+        try { frame.focus({ preventScroll: true }); } catch (e) {}
+        // Otvoreno tastaturom (Enter ili razmak daju detail 0): na samoj mapi se okvir fokusa
+        // ne vidi, pa ga crta kutija mape. Okvir nestaje čim fokus pređe na nešto drugo na strani.
+        if (ev.detail === 0 && document.activeElement === frame) {
+          box.setAttribute('data-map-focus', '');
+          const skini = () => box.removeAttribute('data-map-focus');
+          this.on(frame, 'blur', skini, { once: true });
+          this.on(document, 'focusin', skini, { once: true });
+        }
+      }, { once: true });
+      // dugme i napomena se vide tek kad klik radi; ako main.js ne proradi, ostaju adresa i link ispod
+      const ui = box.querySelector('[data-map-ui]');
+      if (ui) ui.style.visibility = 'visible';
+    }
+
     /* Poruka se sastavlja iz čipova i opisa; isti tekst ide u pregled i u WhatsApp. */
     waMessage() {
       const form = document.querySelector('[data-form]');
@@ -383,8 +419,9 @@
         en: { hi: 'Hello, I need:', car: '', empty: 'Hello, I need help with my car.' },
         ru: { hi: 'Здравствуйте, мне нужно:', car: '', empty: 'Здравствуйте, нужна помощь с автомобилем.' }
       }[lang] || { hi: 'Zdravo, treba mi:', car: '', empty: 'Zdravo, treba mi pomoć oko vozila.' };
-      const usluge = (form.elements['usluga'] && form.elements['usluga'].value || '').trim();
-      const opis = (form.elements['poruka'] && form.elements['poruka'].value || '').trim();
+      const uf = form.querySelector('[data-usluga]');
+      const usluge = (uf && uf.value || '').trim();
+      const opis = (form.elements['text'] && form.elements['text'].value || '').trim();
       if (!usluge && !opis) return t.empty;
       const rows = [];
       if (usluge) rows.push(t.hi + ' ' + usluge + '.');
@@ -402,6 +439,7 @@
     setupLoader() {
       const el = document.querySelector('[data-loader]');
       if (!el) return;
+      if (CONFIG.mirno) { el.remove(); document.documentElement.dataset.loaded = '1'; return; }
       const logo = el.querySelector('[data-loader-logo]');
       const bar = el.querySelector('[data-loader-bar]');
       // Ne diramo body overflow: to sruši visinu dokumenta i ScrollTrigger izmeri nulu.
@@ -425,22 +463,43 @@
         el.dataset.done = '1';
         el.style.transform = 'translateY(-100%)';
         el.style.opacity = '0';
+        document.documentElement.dataset.loaded = '1';
+        // hero tekst kreće dok se ekran povlači, ne pre
+        setTimeout(() => window.dispatchEvent(new Event('dl:loaded')), 260);
         window.removeEventListener('wheel', block);
         window.removeEventListener('touchmove', block);
         window.removeEventListener('keydown', keys);
         if (stoppedLenis && this.lenis) this.lenis.start();
+        // link sa podstrane (npr. /#usluge): skok na sekciju dok se uvodni ekran povlači
+        const y0 = this.scrollToHash();
         setTimeout(() => {
           el.remove();
-          requestAnimationFrame(() => { if (window.ScrollTrigger) window.ScrollTrigger.refresh(true); });
+          requestAnimationFrame(() => {
+            if (window.ScrollTrigger) window.ScrollTrigger.refresh(true);
+            // posle osvežavanja raspored može malo da se pomeri; ponovi samo ako korisnik nije skrolovao
+            if (y0 !== null && Math.abs(window.scrollY - y0) < 4) this.scrollToHash();
+          });
         }, 1100);
       };
 
-      // čeka logo i hero fotku, ali ne duže od 2.6s
+      // čeka logo i hero fotku, ali ne duže od 0.8s
       const hero = document.querySelector('#top img');
       const waits = [logo, hero].filter(Boolean).map(img => img.complete ? Promise.resolve()
         : new Promise(res => { img.addEventListener('load', res, { once: true }); img.addEventListener('error', res, { once: true }); }));
-      Promise.all(waits).then(() => setTimeout(done, 620));
-      setTimeout(done, 2600);
+      Promise.all(waits).then(() => setTimeout(done, 150));
+      setTimeout(done, 800);
+    }
+
+    /* Skok na sekciju iz adrese (#usluge, #kontakt...), ispod fiksnog headera. Vraća novu poziciju ili null. */
+    scrollToHash() {
+      let id = '';
+      try { id = decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) { return null; }
+      const target = id && document.getElementById(id);
+      if (!target) return null;
+      const y = Math.max(0, Math.round(target.getBoundingClientRect().top + window.scrollY - 60));
+      if (this.lenis) this.lenis.scrollTo(y, { immediate: true, force: true });
+      else window.scrollTo(0, y);
+      return y;
     }
 
     setupNav() {
@@ -471,10 +530,12 @@
       setOpen(false);
     }
 
+    /* Sa JavaScriptom poruka se slaže ovde (čipovi + opis) i otvara se wa.me. Bez JavaScripta isti
+       obrazac sam otvara wa.me sa upisanim tekstom (action i polje text u index.html). */
     setupForm() {
       const form = document.querySelector('[data-form]');
       if (!form) return;
-      const ta = form.elements['poruka'];
+      const ta = form.elements['text'];
       if (ta) this.on(ta, 'input', () => this.paintPreview());
       this.paintPreview();
       this.on(form, 'submit', (e) => {
@@ -498,7 +559,8 @@
         const zeroed = live.length > 0 && live.every(t => t.end === 0);
         if (zeroed) { try { window.ScrollTrigger.refresh(true); } catch (e) {} }
         if (!alive || (zeroed && window.ScrollTrigger.getAll().every(t => t.end === 0))) {
-          gsap.set('#top h1 span, [data-card], [data-rise], section h2, section h3', { clearProps: 'all' });
+          // briše samo ono što animacija postavlja; inline stil (dizajn) ostaje
+          gsap.set('#top h1 span, [data-card], [data-rise], section h2, section h3', { clearProps: 'transform,opacity' });
           gsap.set('[data-ul]', { scaleX: 1 });
         }
       }, 2200);
@@ -509,8 +571,8 @@
       gsap.registerPlugin(ST);
 
       /* Lenis smooth scroll, sinhronizovan sa ScrollTriggerom */
-      if (window.Lenis && !this.reduced) {
-        const lenis = new window.Lenis({ duration: 1.15, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.4 });
+      if (window.Lenis && !this.reduced && !CONFIG.mirno) {
+        const lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.3 });
         this.lenis = lenis;
         lenis.on('scroll', ST.update);
         gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -534,10 +596,15 @@
       }
 
       /* Hero ulaz */
-      const hero = gsap.timeline({ delay: 0.15 });
-      hero.from('#top [data-rise]', { y: 22, opacity: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out' }, 0)
-          .from('#top h1 > span', { y: 34, opacity: 0, duration: 1.1, stagger: 0.09, ease: 'power3.out' }, 0.05)
+      const hero = gsap.timeline({ paused: true, defaults: { force3D: true } });
+      hero.from('#top [data-rise]', { y: 22, duration: 0.9, stagger: 0.1, ease: 'power3.out' }, 0)
+          .from('#top h1 > span:first-child, #top [data-h1] > span', { y: 34, duration: 1.1, stagger: 0.09, ease: 'power3.out' }, 0.05)
           .to('#top [data-ul]', { scaleX: 1, duration: 1.1, ease: 'power2.inOut' }, 0.85);
+      // pušta se tek kad su svi koraci dodati; tri puta osigurano (event, flag, rezerva)
+      const playHero = () => { if (!hero.isActive() && hero.progress() === 0) hero.play(0); };
+      if (document.documentElement.dataset.loaded || !document.querySelector('[data-loader]')) playHero();
+      else window.addEventListener('dl:loaded', playHero, { once: true });
+      setTimeout(playHero, 1400);
 
       /* Svaki element se animira TAČNO jednom. Ako je predak već animiran,
          potomak se preskače: dve transformacije na istom čvoru izgledaju kao bag. */
@@ -573,12 +640,10 @@
         });
         if (boxed) {
           // red sa linijom: prvo se linija izvuče, pa tekst
-          tl.fromTo(card, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.7 }, 0)
-            .fromTo(card.children, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, stagger: 0.08 }, 0.18);
+          tl.fromTo(card.children, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.08, force3D: true }, 0);
         } else {
           // kartica: blagi lift uz otkrivanje odozdo
-          tl.fromTo(card, { y: 26, opacity: 0, clipPath: 'inset(12% 0 0 0)' },
-                          { y: 0, opacity: 1, clipPath: 'inset(0% 0 0 0)', duration: 0.9 }, 0);
+          tl.fromTo(card, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 1, force3D: true }, 0);
         }
         this.triggers.push(tl.scrollTrigger);
       });
@@ -587,14 +652,14 @@
       gsap.utils.toArray('section h2, section h3').forEach(el => {
         if (!free(el)) return;
         this.reg(gsap.fromTo(el, { y: 22, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', immediateRender: false,
+          y: 0, opacity: 1, duration: 1, ease: 'power2.out', force3D: true, immediateRender: false,
           scrollTrigger: { trigger: el, start: 'top 91%' }
         }));
       });
       gsap.utils.toArray('[data-rise]').forEach(el => {
         if (!free(el)) return;
         this.reg(gsap.fromTo(el, { y: 14, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.75, ease: 'power3.out', immediateRender: false,
+          y: 0, opacity: 1, duration: 0.85, ease: 'power2.out', force3D: true, immediateRender: false,
           scrollTrigger: { trigger: el, start: 'top 93%' }
         }));
       });
@@ -624,7 +689,7 @@
       if (hv) {
         this.reg(gsap.fromTo(hv, { scale: 1.1 }, {
           scale: 1, ease: 'none', immediateRender: false,
-          scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: true }
+          scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: 0.8 }
         }));
       }
 
@@ -632,7 +697,7 @@
       gsap.utils.toArray('[data-parallax]').forEach(el => {
         this.reg(gsap.fromTo(el, { yPercent: -6 }, {
           yPercent: 6, ease: 'none', immediateRender: false,
-          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true }
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.8 }
         }));
       });
 
@@ -656,7 +721,7 @@
       });
 
       /* Magnetic dugmad */
-      document.querySelectorAll('[data-magnetic]').forEach(btn => {
+      if (!CONFIG.mirno) document.querySelectorAll('[data-magnetic]').forEach(btn => {
         this.on(btn, 'mousemove', (e) => {
           const r = btn.getBoundingClientRect();
           gsap.to(btn, {

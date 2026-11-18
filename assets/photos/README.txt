@@ -1,18 +1,10 @@
-U sajtu se koriste četiri fotografije:
+FOTOGRAFIJE
 
-  hero.jpg          predaja ključa kroz prozor automobila   → hero (upscale 2358×3192)
-  uvoz.jpg          oštećen automobil posle udesa           → pojas "Uvoz"
-  red.jpg           vozač sa telefonom, BMW interijer       → sekcija "Zovi nas kada"
-  kontakt-osoba.jpg fotografija čoveka koji odgovara na      → prozor "Tu smo na
-                    WhatsApp (kvadratna, gleda u kameru)        WhatsAppu" dole desno
-                    TRENUTNO PLACEHOLDER, zameniti pravom fotografijom
+  hero.webp   predaja ključa kroz prozor automobila → hero (vrh stranice)
+              1600 x 2166 px, WebP
 
-Zamena je jednostavna: prepiši fajl istim imenom. Format JPG, tamno i
-kinematografski, bez utisnutog teksta i loga (preko slika ide gradijent i
-beli tekst).
+Nova hero fotografija: sačuvaj je kao hero.webp (oko 1600 px širine),
+ili promeni putanju u index.html na dva mesta (preload u <head> i <img> u heroju)
+i upiši njene prave width/height vrednosti.
 
-Folder "rezerva/" sadrži ostale poslate fotografije koje trenutno nisu na
-sajtu — telefon.jpg, kljuc-blur.jpg, mercedes-interijer.jpg, umoran.jpg,
-steta.jpg, bmw-interijer.jpg, predaja-kljuca.jpg. Ako želiš neku od njih
-na sajtu,
-prekopiraj je jedan nivo iznad pod odgovarajućim imenom.
+Slika za deljenje na mrežama je assets/og-image.jpg (1200 x 630 px).

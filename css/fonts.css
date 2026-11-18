@@ -1,0 +1,82 @@
+/* Fontovi sajta. Fajlovi su na samom sajtu, u assets/fonts (uz njih su i licence, OFL).
+   Preuzeti su sa Google Fonts 18.11.2026. i nisu menjani. To su fajlovi koje Google šalje
+   pregledačima na Windowsu. Pregledačima na Androidu, iOS-u i Mac-u Google šalje skoro iste
+   fajlove: bez tabele „prep” (dodatak za lepše iscrtavanje na Windowsu), a slova i razmaci su isti.
+   Fontovi su podeljeni na delove: latin (osnovna latinica), latin-ext (č, ć, š, ž, đ...) i
+   cyrillic (ruski; Space Grotesk nema ćirilicu). Delove greek, vietnamese i cyrillic-ext sajt ne
+   koristi, pa ih ovde nema. Pregledač preuzme samo one delove čija slova strana zaista koristi
+   (unicode-range).
+   Fontovi su promenljivi (variable), pa jedan fajl pokriva sve debljine iz raspona u font-weight.
+   U fajlovima ima i više debljina (Manrope 200-800, Space Grotesk 300-700, Golos Text 400-900),
+   pa za novu debljinu samo proširi raspon u font-weight. Debljinu van raspona pregledač svodi
+   na najbližu u rasponu, a za 600 i više, kad raspon ide samo do 500, slova sam podebljava. */
+
+/* Space Grotesk: naslovi */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(../assets/fonts/space-grotesk-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(../assets/fonts/space-grotesk-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Manrope: običan tekst */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(../assets/fonts/manrope-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(../assets/fonts/manrope-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(../assets/fonts/manrope-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Golos Text: naslovi na ruskom (Space Grotesk nema ćirilicu) */
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(../assets/fonts/golos-text-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(../assets/fonts/golos-text-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(../assets/fonts/golos-text-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

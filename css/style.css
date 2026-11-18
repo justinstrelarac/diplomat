@@ -1,16 +1,12 @@
 /* ============================================================
    Diplomat Line, style.css
    Boje i fontovi se menjaju SAMO ovde, u :root varijablama.
-   Prelomne tačke: 1200 / 1100 / 992 / 768 / 540 / 480 / 380 px.
    ============================================================ */
 :root {
-  /* Boje brenda */
   --black: #0A0A0A;             --black-rgb: 10,10,10;
   --ink: #F5F3EF;               --ink-rgb: 245,243,239;
   --accent: #C8C6C0;            --accent-rgb: 200,198,192;
   --accent-light: #E9E7E1;      --accent-light-rgb: 233,231,225;
-
-  /* Tipografija */
   --font-display: 'Space Grotesk', sans-serif;              /* naslovi */
   --font-body: 'Manrope', sans-serif;                       /* telo */
   --font-display-cyr: 'Golos Text', 'Manrope', sans-serif;  /* ruska verzija */
@@ -24,7 +20,6 @@ html { -webkit-text-size-adjust: 100%; }
   :focus-visible { outline: 2px solid #C8C6C0; outline-offset: 3px; }
   ::selection { background: #C8C6C0; color: #0A0A0A; }
   input, textarea, select, button { font-family: inherit; }
-  select option { background: #111; color: #F5F3EF; }
   @keyframes dl-grain { 0%,100% { transform: translate(0,0); } 20% { transform: translate(-2%,1%); } 40% { transform: translate(1%,-2%); } 60% { transform: translate(-1%,2%); } 80% { transform: translate(2%,-1%); } }
   @keyframes dl-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes dl-scroll-hint { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
@@ -33,6 +28,19 @@ html { -webkit-text-size-adjust: 100%; }
   /* Prelomi teksta: naslovi se balansiraju, pasusi nemaju siroče u zadnjem redu */
   h1, h2, h3, blockquote p { text-wrap: balance; }
   p, li span, figcaption { text-wrap: pretty; }
+
+
+  /* Hero fotografija je portretna (1600 x 2166 px): na širokom ekranu stoji desno, u svojoj
+     pravoj veličini, i utapa se u crnu levo. Tako se ne razvlači i ostaje oštra. */
+  @media (min-width: 992px) {
+    [data-hero-media] {
+      left: auto !important;
+      width: min(58%, 1100px) !important;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+              mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+    }
+    [data-hero-media] img { object-position: 50% 38% !important; }
+  }
 
   /* ============================================================
      RESPONZIVNOST
@@ -153,9 +161,8 @@ html { -webkit-text-size-adjust: 100%; }
   }
 
   /* Space Grotesk nema ćirilicu, na ruskoj verziji naslovi idu u Golos Text (isti grotesk karakter) */
-  html[lang="ru"] h1, html[lang="ru"] h2, html[lang="ru"] h3, html[lang="ru"] blockquote p, html[lang="ru"] li span, html[lang="ru"] [data-count], html[lang="ru"] figcaption span { font-family: var(--font-display-cyr) !important; }
+  html[lang="ru"] h1, html[lang="ru"] [data-h1], html[lang="ru"] h2, html[lang="ru"] h3, html[lang="ru"] blockquote p, html[lang="ru"] li span, html[lang="ru"] [data-count], html[lang="ru"] figcaption span { font-family: var(--font-display-cyr) !important; }
 
-/* Uvodni ekran se ne animira ako korisnik ne želi animacije */
 @media (prefers-reduced-motion: reduce) {
   [data-loader] { transition: none !important; }
   [data-loader] img, [data-loader] [data-loader-bar] { transition: none !important; opacity: 1 !important; transform: none !important; }
@@ -173,27 +180,63 @@ html { -webkit-text-size-adjust: 100%; }
 .i9:hover { background:rgba(var(--accent-rgb),.16) !important; border-color:rgba(var(--accent-rgb),.85) !important; }
 .i10:hover { background:var(--accent-light) !important; }
 .i11:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
-.i12:hover { border-top-color:rgba(var(--accent-rgb),.55) !important; }
+.i12:hover { color:var(--accent-light) !important; }
 .i13:hover { border-top-color:rgba(var(--accent-rgb),.55) !important; }
 .i14:hover { border-top-color:rgba(var(--accent-rgb),.55) !important; }
-.i15:hover { background:var(--accent-light) !important; }
-.i16:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
-.i17:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
-.i18:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i15:hover { color:var(--accent-light) !important; }
+.i16:hover { border-top-color:rgba(var(--accent-rgb),.55) !important; }
+.i17:hover { color:var(--accent-light) !important; }
+.i18:hover { background:var(--accent-light) !important; }
 .i19:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
 .i20:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
-.i21:hover { animation-play-state:paused !important; }
-.i22:hover { color:var(--accent-light) !important; }
-.i23:hover { color:var(--accent-light) !important; }
-.i24:hover { color:var(--accent-light) !important; }
+.i21:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i22:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i23:hover { border-color:rgba(var(--accent-rgb),.6) !important; }
+.i24:hover { animation-play-state:paused !important; }
 .i25:hover { color:var(--accent-light) !important; }
-.i26:focus { border-color:rgba(var(--accent-rgb),.75) !important; }
-.i27:hover { background:#1EBE5A !important; }
+.i26:hover { color:var(--accent-light) !important; }
+.i27:hover { color:var(--accent-light) !important; }
 .i28:hover { color:var(--accent-light) !important; }
 .i29:hover { color:var(--accent-light) !important; }
 .i30:hover { color:var(--accent-light) !important; }
 .i31:hover { color:var(--accent-light) !important; }
-.i32:hover { color:var(--accent-light) !important; }
-.i33:hover { color:var(--accent-light) !important; }
+.i32:focus { border-color:rgba(var(--accent-rgb),.75) !important; }
+.i33:hover { background:#1EBE5A !important; }
 .i34:hover { color:var(--accent-light) !important; }
 .i35:hover { color:var(--accent-light) !important; }
+.i36:hover { color:var(--accent-light) !important; }
+.i37:hover { color:var(--accent-light) !important; }
+.i38:hover { color:var(--accent-light) !important; }
+.i39:hover { color:var(--accent-light) !important; }
+.i40:hover { color:var(--accent-light) !important; }
+.i41:hover { color:var(--accent-light) !important; }
+.i42:hover { color:var(--accent-light) !important; }
+.i43:hover { background:rgba(var(--accent-rgb),.16) !important; border-color:rgba(var(--accent-rgb),.85) !important; }
+
+/* Mapa na strani Kontakt: na samoj mapi (<iframe>) okvir fokusa se ne vidi, jer fokus prelazi
+   u Google-ovu stranu unutar mape, a filter mape bi ga i potamneo. Kad se mapa otvori tastaturom,
+   okvir crta kutija mape (data-map-focus postavlja i skida setupMap u js/main.js). */
+[data-map][data-map-focus] { outline: 2px solid #C8C6C0; outline-offset: 3px; }
+
+/* Skok na sekciju (#usluge, #kontakt...) ne završava ispod fiksnog headera */
+section[id]:not(#top) { scroll-margin-top: 60px; }
+
+/* ============================================================
+   MIRAN STIL (izabran 17.11.2026)
+   Klasa "mirno" na <html> isključuje efekte: uvodni ekran, filmsko zrno,
+   krug umesto kursora, liniju za skrol, magnetna dugmad, glatki skrol
+   i WhatsApp prozor koji sam iskače (ostaje malo WhatsApp dugme).
+   Naslov u heroju je običnim slovima. Bez klase sajt izgleda kao ranija verzija.
+   ============================================================ */
+html.mirno [data-loader],
+html.mirno [data-grain],
+html.mirno [data-cursor],
+html.mirno [data-scroll-hint] { display: none !important; }
+html.mirno [data-h1] {
+  text-transform: none !important;
+  letter-spacing: -.025em !important;
+  font-size: clamp(2.1rem, 5.4vw, 4.6rem) !important;
+  line-height: 1.04 !important;
+  max-width: 16em !important;
+}
+@media (prefers-reduced-motion: no-preference) { html.mirno { scroll-behavior: smooth; } }
