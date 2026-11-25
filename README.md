@@ -70,6 +70,12 @@ Broj je u svim HTML stranama i u `js/main.js`, u tri oblika. Pretraži ceo folde
     38162350950        linkovi za poziv, WhatsApp i Viber (tel:+381..., wa.me/381..., viber ...%2B381...)
     +381 62 350 950    podaci o firmi za Google, u index.html
 
+## Mejl
+
+Mejl `office@diplomatline.rs` je u kontaktu na početnoj i na strani Kontakt, u futeru strana, u
+podacima o firmi za Google (`index.html`) i u politici privatnosti, svuda i kao tekst i kao
+`mailto:` link. Kad se menja, pretraži ceo folder i zameni svuda.
+
 ## Slike
 
 - `assets/photos/hero.webp`: fotografija na vrhu početne, uspravna, 1600 x 2166 px. Nova ide pod istim
